@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
             animator.CrossFade(animAttack, 0);
         }
 
-        if (Input.GetButtonDown("FireRight"))
+        if (Input.GetButtonDown("FireLeft"))
         {
             isAttacking = false;
             animator.SetBool("isAttacking", false);
