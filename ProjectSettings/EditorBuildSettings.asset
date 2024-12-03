@@ -12,15 +12,27 @@ EditorBuildSettings:
     path: Assets/Scenes/HowToPlay.unity
     guid: ba8a075241c1b1c4ab48c1e0a2b9f670
   - enabled: 1
-    path: Assets/Scenes/StartScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Level1Ac.unity
+    guid: ebeb5a853213a224a8d339272f37949c
+  - enabled: 1
+    path: Assets/Scenes/BossRoom1.unity
+    guid: a1e8edf848568d14c848d8917c582cff
   - enabled: 1
     path: Assets/Scenes/Random Gen Map.unity
     guid: 461b3d6b5fe2737449c08788c1b72b69
   - enabled: 1
+    path: Assets/Scenes/BossRoom22.unity
+    guid: 7c80663f415968c4897e91f1be84910b
+  - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 90060a437dca5714f9fd1160d7e777aa
   - enabled: 0
-    path: Assets/Scenes/Level2.unity
+    path: Assets/Scenes/Anothertester.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 0
+    path: Assets/Scenes/testerleel.unity
+    guid: a92c54c1c9f866846ad0f5f95d26fa8d
+  - enabled: 0
+    path: Assets/Scenes/Dontuse.unity
     guid: 3843e786b2448d045b76ce9712900d09
   m_configObjects: {}

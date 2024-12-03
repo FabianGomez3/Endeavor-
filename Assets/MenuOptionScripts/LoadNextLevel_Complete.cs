@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadNextLevel_Complete : MonoBehaviour
 {
     private Player player;
-
+  
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -26,6 +26,7 @@ public class LoadNextLevel_Complete : MonoBehaviour
 
     private void LoadNextLevel()
     {
+    
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
     }

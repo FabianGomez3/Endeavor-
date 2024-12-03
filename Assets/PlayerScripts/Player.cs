@@ -12,7 +12,13 @@ public class Player : MonoBehaviour
     public float maxHealth = 6;
     public float health;
     public bool isInvincible = false;
-    
+    private bool isLoading = false;
+    [SerializeField] 
+    private AudioClip coin, key; 
+    private AudioSource audioSource;
+
+    [SerializeField]
+
     
     public int keys = 0, coins = 0;
  
@@ -21,24 +27,32 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI coinsText;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SetHealth();
+
     }
    
    private void OnTriggerEnter2D(Collider2D collision)
    {
         if(collision.tag == "Key")
         {
+            
             Destroy(collision.gameObject);
             keys += 1;
             KeysText.text = keys.ToString();
 
             if(keys >= 3)
             {
-                LoadNextLevel();
+                audioSource.clip = key;
+                audioSource.Play();
+                StartCoroutine(WaitToLoad(audioSource.clip.length));
             }
         }
         if(collision.tag == "Coin")
         {
+            audioSource.clip = coin;
+            audioSource.Play();
+            audioSource.SetScheduledEndTime(AudioSettings.dspTime + 2f);
             Destroy(collision.gameObject);
             coins += 1;
             coinsText.text = coins.ToString();
@@ -49,7 +63,9 @@ public class Player : MonoBehaviour
             }
         }
    }
-   public void TakeDamage(float damage)
+
+    
+    public void TakeDamage(float damage)
    {
         if (isInvincible) return;
 
@@ -96,8 +112,17 @@ public class Player : MonoBehaviour
     }
 
     public void LoadNextLevel()
-    {
+    {   
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
+    }
+    
+    private IEnumerator WaitToLoad(float waitTime)
+    {
+        if(isLoading) yield break;
+        isLoading = true;
+
+        yield return new WaitForSeconds(waitTime);
+        LoadNextLevel();
     }
 }

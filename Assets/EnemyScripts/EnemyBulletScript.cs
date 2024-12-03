@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBulletScript : MonoBehaviour
@@ -30,6 +31,10 @@ public class EnemyBulletScript : MonoBehaviour
                 playerScript.TakeDamage(20);
                 Destroy(gameObject);
             }
+        }
+        if(other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
 }

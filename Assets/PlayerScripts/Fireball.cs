@@ -34,7 +34,6 @@ public class Shot : MonoBehaviour
     {
         damage = newStrength;
     }
-
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
         if (hitInfo.CompareTag("Enemy"))
@@ -55,6 +54,16 @@ public class Shot : MonoBehaviour
 
             Destroy(gameObject); 
 
+        }
+        if (hitInfo.CompareTag("Wall"))
+        {
+            Debug.Log("Wall");
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect,5f);
+            }
+            Destroy(gameObject);
         }
     }
 

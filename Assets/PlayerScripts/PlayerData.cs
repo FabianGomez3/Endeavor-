@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public float health;
+    //public float health;
     public float [] position;
     //public List<EnemyData> enemies;
     //public PlayerData (GameManager gameManager, List<Enemy> allEnemies)
@@ -13,7 +13,7 @@ public class PlayerData
     {
         
 
-        health = gameManager.health;
+        //health = gameManager.health;
 
         position = new float [3];
         position[0]  = gameManager.transform.position.x;

@@ -4,37 +4,51 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth = 100f;
-    public float health;
-    public int damage;
-    public Player player;
+    public float maxHealthB = 100f;
+    public float healthB;
+    public int damageB;
+    public Player players;
 
     public GameObject death;
-
+    [SerializeField] 
+    private AudioClip deadEnemy; 
+    private AudioSource audioSource;
+    private bool isDead = false;
     private void Start()
     {
-        health = maxHealth;
+        audioSource = GetComponent<AudioSource>();
+        healthB = maxHealthB;
     }
 
     public void TakeDamage(float damageAmount)
     {
-        health -= damageAmount; 
-        if (health <= 0)
+        healthB -= damageAmount; 
+        if (healthB <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D coll)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(coll.gameObject.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
-            if (player != null)
+            Player players = coll.gameObject.GetComponent<Player>();
+            if (players != null)
             {
-                player.TakeDamage(damage);
+                players.TakeDamage(damageB);
             }
         }
 
+    }
+    void Die()
+    {
+        if(isDead) return;
+        isDead = true;
+
+        audioSource.clip = deadEnemy;
+        audioSource.Play();
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+        Destroy(gameObject, deadEnemy.length);
     }
 
 }

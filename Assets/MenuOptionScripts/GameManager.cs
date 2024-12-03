@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public float health;
+    //public float health;
     public void SavePlayer()
     {   
 
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerData data = SaveData.LoadPlayer();
 
-        health = data.health;
+        //health = data.health;
         
         Vector3 position;
         position.x =  data.position[0];

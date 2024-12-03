@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class LoadNextLevel : MonoBehaviour
 {
-    
+    public bool isNextScene = true;
+    [SerializeField]
+    public SavingHealth savingHealth;
     private void OnTriggerEnter2D(Collider2D collision)
     {
        
         if (collision.CompareTag("Player"))
         {
             Scene currentScene = SceneManager.GetActiveScene();
-
+            savingHealth.isNextScene = isNextScene;
             SceneManager.LoadScene(currentScene.buildIndex + 1);
         }
     }

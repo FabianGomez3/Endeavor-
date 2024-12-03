@@ -12,6 +12,7 @@ TagManager:
   - PowerUpHealth
   - Coin
   - Key
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -60,7 +61,4 @@ TagManager:
     locked: 0
   - name: Walls
     uniqueID: 3218028695
-    locked: 0
-  - name: Lava
-    uniqueID: 1544922149
     locked: 0

@@ -7,25 +7,36 @@ public class Shooting : MonoBehaviour
     public Transform shootingPoint;
     public GameObject fireBall;
 
+
     public float fireSpeed = 10f;
+    public float fireRate = 0.5f;
+    private float firePause = 0.5f;
     void Update()
     {
-        if (Input.GetButtonDown("FireUp"))   
-        {  
-            Shoot(Vector2.up);
+        if(Time.time >= firePause)
+        {
+            if (Input.GetButtonDown("FireUp"))   
+            {  
+                Shoot(Vector2.up);
+                firePause = Time.time + fireRate;
+            }
+            if (Input.GetButtonDown("FireRight"))   
+            {  
+                Shoot(Vector2.right);
+                firePause = Time.time + fireRate;
+            }
+            if (Input.GetButtonDown("FireLeft"))   
+            {  
+                Shoot(Vector2.left);
+                firePause = Time.time + fireRate;
+            }
+            if (Input.GetButtonDown("FireDown"))   
+            {  
+                Shoot(Vector2.down);
+                firePause = Time.time + fireRate;
+            }
         }
-         if (Input.GetButtonDown("FireRight"))   
-        {  
-            Shoot(Vector2.right);
-        }
-         if (Input.GetButtonDown("FireLeft"))   
-        {  
-            Shoot(Vector2.left);
-        }
-         if (Input.GetButtonDown("FireDown"))   
-        {  
-            Shoot(Vector2.down);
-        }
+       
     }
     
     
