@@ -5,26 +5,28 @@ using UnityEngine.Timeline;
 
 public class ShooterEnemyStraight : MonoBehaviour
 {
+    public float damage = 20f;
+    public float lifetTime = 5f;
    public GameObject bullet;
    public Transform bulletposition;
    private float timer  = 0f;
    private float shootingInterval = 2f;
 
+   void Start ()
+   {
+        
+   }
    
     void Update()
     {
         timer += Time.deltaTime;
-        GameObject player = GameObject.FindWithTag("Player");
-        if(player != null)
-        {
-            float distance = Vector2.Distance(transform.position, player.transform.position);
-            if (distance <= shootingInterval && timer >= shootingInterval)
-            {
-                shoot();
-                timer = 0f;
 
-            }
+        if(timer >= shootingInterval)
+        {
+            shoot();
+            timer = 0f;
         }
+       
     }
      void shoot ()
      {
@@ -35,4 +37,21 @@ public class ShooterEnemyStraight : MonoBehaviour
             rb.velocity = bulletposition.right * 5f;
         }
      }
+        private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            Player playerScript = other.gameObject.GetComponent<Player>();
+            
+            if (playerScript != null)
+            {
+                playerScript.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
+        else if(other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

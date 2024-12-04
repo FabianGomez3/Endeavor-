@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        if(isDead) return;
         healthB -= damageAmount; 
         if (healthB <= 0)
         {

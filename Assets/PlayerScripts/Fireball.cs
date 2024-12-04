@@ -14,26 +14,27 @@ public class Shot : MonoBehaviour
 
     private void Start()
     {
-        powerUpManager = FindObjectOfType<PowerUpManager>();
-        if(powerUpManager != null)
-        {
-            damage = powerUpManager.GetCurStrength();
-        }
-        else
-        {
-            damage = baseDamage;
-        }
+        damage = baseDamage;
+        // powerUpManager = FindObjectOfType<PowerUpManager>();
+        // if(powerUpManager != null)
+        // {
+        //     damage = powerUpManager.GetCurStrength();
+        // }
+        // else
+        // {
+        //     damage = baseDamage;
+        // }
         
     }
-    public void ResetStrength()
-    {
-        damage = baseDamage;
-    }
+    // public void ResetStrength()
+    // {
+    //     damage = baseDamage;
+    // }
 
-    public void SetStrength(float newStrength)
-    {
-        damage = newStrength;
-    }
+    // public void SetStrength(float newStrength)
+    // {
+    //     damage = newStrength;
+    // }
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
         if (hitInfo.CompareTag("Enemy"))

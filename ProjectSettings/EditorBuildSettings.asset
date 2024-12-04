@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BossRoom22.unity
     guid: 7c80663f415968c4897e91f1be84910b
   - enabled: 1
+    path: Assets/Scenes/Level3Fr.unity
+    guid: 005897e847be039409fc03acc6b24b11
+  - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 90060a437dca5714f9fd1160d7e777aa
   - enabled: 0

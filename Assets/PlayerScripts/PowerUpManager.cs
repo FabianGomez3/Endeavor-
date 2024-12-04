@@ -2,25 +2,55 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TMPro;
+using System.Collections.Generic;
 public class PowerUpManager : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private float curStrength = 20f;
     private Player player;
-    
+    public List<string> activePowerUps = new List<string>();
+    public TextMeshProUGUI powerUpText;
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         player = GetComponent<Player>();
        
     }
+    
+    public void AddPowerUp(string powerUpName)
+    {
+        if (!activePowerUps.Contains(powerUpName))
+        {
+            activePowerUps.Add(powerUpName);
+            UpdatePowerUpDisplay();
+        }
+    }
 
+    public void RemovePowerUp(string powerUpName)
+    {
+        if (activePowerUps.Contains(powerUpName))
+        {
+            activePowerUps.Remove(powerUpName);
+            UpdatePowerUpDisplay();
+        }
+    }
+
+    void UpdatePowerUpDisplay()
+    {
+        if (powerUpText != null)
+        {
+            powerUpText.text = string.Join(" ", activePowerUps);
+        }
+    }
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PowerUpInvincibility"))
         {
             Destroy(collision.gameObject);
-            ActivateInvincibility(5f); 
+            StartCoroutine(PowerUpTimer("Invincibility", 5f)); 
         }
 
          if (collision.CompareTag("PowerUpHealth"))
@@ -32,49 +62,50 @@ public class PowerUpManager : MonoBehaviour
         if (collision.CompareTag("PowerUpSpeed"))
         {
             Destroy(collision.gameObject);
-            ActivateSpeedPowerUp(10f, 5f); 
+            StartCoroutine(PowerUpTimer("Speed", 5f));
         }
 
         if (collision.CompareTag("PowerUpStrength"))
         {
             Destroy(collision.gameObject);
-            ActivateStrengthPowerUp(40f, 5f); 
+            StartCoroutine(PowerUpTimer("Strength", 5f)); 
         }
     }
 
    
-    private void ActivateInvincibility(float duration)
-    {
-        StartCoroutine(PowerUpTimer(duration));
-    }
 
-    public float GetCurStrength()
+    private IEnumerator PowerUpTimer(string powerUpName, float duration)
     {
-        return curStrength;
-    }
+        AddPowerUp(powerUpName);
 
-    private void ActivateStrengthPowerUp(float newStrength, float duration)
-    {
-        curStrength = newStrength;
-        StartCoroutine(PowerUpTimer(duration));
-    }
-
-    public void ActivateSpeedPowerUp(float newSpeed, float duration)
-    {
-        
-        playerMovement.SetSpeed(newSpeed);
-        StartCoroutine(PowerUpTimer(duration));
-    }
-
-    private IEnumerator PowerUpTimer(float duration)
-    {
-        player.SetInvincibility(true);
+        if (powerUpName == "Invincibility")
+        {
+            player.SetInvincibility(true);
+        }
+        else if (powerUpName == "Speed")
+        {
+            playerMovement.SetSpeed(10f);
+        }
+        else if (powerUpName == "Strength")
+        {
+            curStrength = 40f;
+        }
+    
         yield return new WaitForSeconds(duration);
-        player.SetInvincibility(false);
-        playerMovement.ResetSpeed(); 
-        curStrength = 20f;
 
+        if (powerUpName == "Invincibility")
+        {
+            player.SetInvincibility(false);
+        }
+        else if (powerUpName == "Speed")
+        {
+            playerMovement.ResetSpeed();
+        }
+        else if (powerUpName == "Strength")
+        {
+            curStrength = 20f;
+        }
+
+        RemovePowerUp(powerUpName);
     }
-
-
 }

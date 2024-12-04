@@ -12,22 +12,25 @@ public class Player : MonoBehaviour
     public float maxHealth = 6;
     public float health;
     public bool isInvincible = false;
-    private bool isLoading = false;
+    
     [SerializeField] 
-    private AudioClip coin, key; 
+    private AudioClip coin, key, spiral; 
     private AudioSource audioSource;
 
     [SerializeField]
 
     
-    public int keys = 0, coins = 0;
+    public int keys = 0, coins = 0, spirals = 0;
  
     public TextMeshProUGUI KeysText;
 
     public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI SpiralsText;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
         SetHealth();
 
     }
@@ -45,7 +48,7 @@ public class Player : MonoBehaviour
             {
                 audioSource.clip = key;
                 audioSource.Play();
-                StartCoroutine(WaitToLoad(audioSource.clip.length));
+                StartCoroutine(WaitToLoad());
             }
         }
         if(collision.tag == "Coin")
@@ -58,6 +61,19 @@ public class Player : MonoBehaviour
             coinsText.text = coins.ToString();
 
             if(coins >= 10)
+            {
+                LoadNextLevel();
+            }
+        }
+        if(collision.tag == "Spiral")
+        {
+            audioSource.clip = spiral;
+            audioSource.Play();
+            Destroy(collision.gameObject);
+            spirals += 1;
+            SpiralsText.text = spirals.ToString();
+
+            if(spirals >= 25)
             {
                 LoadNextLevel();
             }
@@ -117,12 +133,9 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
     
-    private IEnumerator WaitToLoad(float waitTime)
+    private IEnumerator WaitToLoad()
     {
-        if(isLoading) yield break;
-        isLoading = true;
-
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(3.0f);
         LoadNextLevel();
     }
 }

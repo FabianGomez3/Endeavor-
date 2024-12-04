@@ -22,6 +22,7 @@ public class LoadMainMenu : MonoBehaviour
 
     public void SkipLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }

@@ -7,5 +7,5 @@ using UnityEngine;
 public class SavingHealth : ScriptableObject
 {
     public bool isNextScene = true;
-    public float playerHealth = 100;
+    //public float playerHealth = 100;
 }
